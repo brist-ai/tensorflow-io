@@ -33,6 +33,8 @@ DataType SqlDataType(int oid) {
       return DT_FLOAT;
     case FLOAT8OID:
       return DT_DOUBLE;
+    case TEXTOID:
+      return DT_STRING;
   }
   return DT_INVALID;
 };
@@ -51,6 +53,10 @@ Status SqlDataCopy(int oid, char* data, Tensor* value) {
       break;
     case FLOAT8OID:
       result = absl::SimpleAtod(data, &value->flat<double>()(0));
+      break;
+    case TEXTOID:
+      result = true;
+      value->flat<tstring>()(0) = tstring(data);
       break;
     default:
       return errors::InvalidArgument("sql data type ", oid, " not supported");
