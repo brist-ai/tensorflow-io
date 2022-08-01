@@ -221,7 +221,7 @@ class IODataset(io_dataset.IODataset):
         )
 
     @classmethod
-    def from_sql(cls, query, endpoint=None, spec=None):
+    def from_sql(cls, query, endpoint=None, spec=None, name=""):
         """Creates an `GraphIODataset` from a postgresql server endpoint.
 
         Args:
@@ -235,7 +235,7 @@ class IODataset(io_dataset.IODataset):
         Returns:
           A `IODataset`.
         """
-        return sql_dataset_ops.SQLIODataset(query, endpoint=endpoint, spec=spec)
+        return sql_dataset_ops.SQLIODataset(query, endpoint=endpoint, spec=spec, shared_name=name)
 
     @classmethod
     def from_video(cls, filename):

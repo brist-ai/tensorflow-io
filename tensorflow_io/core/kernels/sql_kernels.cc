@@ -207,6 +207,7 @@ class SqlIterableInitOp : public ResourceOpKernel<SqlIterableResource> {
   }
   Status CreateResource(SqlIterableResource** resource)
       TF_EXCLUSIVE_LOCKS_REQUIRED(mu_) override {
+    LOG(INFO) << "creating new connection";
     *resource = new SqlIterableResource(env_);
     return Status::OK();
   }

@@ -21,13 +21,13 @@ from tensorflow_io.python.ops import core_ops
 class SQLIODataset(tf.data.Dataset):
     """SQLIODataset"""
 
-    def __init__(self, query, endpoint=None, spec=None, internal=True):
+    def __init__(self, query, endpoint=None, spec=None, internal=True, shared_name=""):
         """SQLIODataset."""
         with tf.name_scope("SQLIODataset"):
             assert internal
             endpoint = endpoint or ""
             resource, count, fields, dtypes = core_ops.io_sql_iterable_init(
-                query, endpoint
+                query, endpoint, shared_name=shared_name
             )
             if spec is None:
                 fields = tf.unstack(fields)
